@@ -2,6 +2,8 @@ import  express, { Request, Response } from 'express';
 import  dotenv from 'dotenv';
 import { connectMongoDB } from './v1/utils/database';
 import bodyParser from 'body-parser'
+import * as v1 from "./v1/routers/router"
+import cors from "cors";
 dotenv.config();
 const app = express();
 
@@ -15,6 +17,14 @@ app.use(bodyParser.json())
 
 //app.use(express.json())
 
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
+//use Router
+app.use("/v1", v1.router)
 //connect database mongoose
 connectMongoDB();
 
